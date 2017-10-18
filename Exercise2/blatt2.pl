@@ -32,11 +32,11 @@ flatten([H|T],L) :- flatten(H,H1) , flatten(T,L1) , append(H1,L1,L).
 
 % flatten with difference lists
 % flatten_DL(List L, List R) - flatten_DL(+,?) will give a flattened version of the List L in R
-flatten_DL(L,R) :- flatten_DL_(L-[],R-[]).
+flatten_DL(L,R) :- flatten_DL_(L,R-[]).
 
-flatten_DL_([]-[],L-L).
-flatten_DL_([H|T]-T1,[H|T2]-T3) :- \+ is_a_list(H) , flatten_DL_(T-T1,T2-T3).
-flatten_DL_([H|T]-T1,L-L2) :- flatten_DL_(H-[],L-L1) , flatten_DL_(T-T1,L1-L2).
+flatten_DL_([],L-L).
+flatten_DL_([H|T],[H|T2]-T3) :- \+ is_a_list(H) , flatten_DL_(T,T2-T3).
+flatten_DL_([H|T],L-L2) :- flatten_DL_(H,L-L1) , flatten_DL_(T,L1-L2).
 
 
 % Implementieren Sie die folgenden Fakten in Prolog:
