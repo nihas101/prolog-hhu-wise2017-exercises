@@ -31,7 +31,7 @@ flatten([H|T],[H|T1]) :- \+ is_a_list(H) , flatten(T,T1).
 flatten([H|T],L) :- flatten(H,H1) , flatten(T,L1) , append(H1,L1,L).
 
 % flatten with difference lists
-% flatten_DL(List L, List R) - flatten_DL(+,?) will give a flattened version of the List L in R
+% flatten_DL(List L, List R) - flatten_DL(+,-) will give a flattened version of the List L in R
 flatten_DL(L,R) :- flatten_DL_(L-[],R-[]).
 
 flatten_DL_([]-[],L-L).
