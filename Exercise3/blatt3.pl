@@ -36,10 +36,10 @@ phi_(M,[H|T],N) :- coprime(M,H) , phi_(M,T,N1) , N is N1+1 , !.
 phi_(M,[_|T],N) :- phi_(M,T,N) , !.
 
 % Aufgabe 5 (Listen)
-duplicate(L,N,R) :- duplicate_(L,N,R-[]).
+duplicate(L,N,R) :- duplicate_(L,N,R-[]) , !.
 
-duplicate_([],_,[]-[]).
-duplicate_([H|T],N,R-R1) :- duplicate_Element(H,N,R-L2) , duplicate_(T,N,L2-R1).
+duplicate_([],_,[]-[]) :- !.
+duplicate_([H|T],N,R-R1) :- duplicate_Element(H,N,R-L2) , duplicate_(T,N,L2-R1) , !.
 
 duplicate_Element(_,0,T-T) :- !.
 duplicate_Element(H,N,[H|T]-T1) :- N1 is N-1 , duplicate_Element(H,N1,T-T1) , !.
