@@ -22,9 +22,9 @@ coprime(A,B) :- gcd(A,B,1).
 
 range_1(0,[]) :- !.
 range_1(1,[]) :- !.
-range_1(N,[1|L]) :- range_2(N,[1|L]-L) , !.
-range_2(N,[A|_]-[B|T1]) :- B is A+1 , N > B , range_2(N,[B|T1]-T1) , !.
-range_2(_,[_|[]]-[]). 
+range_1(N,[1|L]) :- range_2(N,[1|L]) , !.
+range_2(N,[A,B|T1]) :- B is A+1 , N > B , range_2(N,[B|T1]) , !.
+range_2(_,[_]). 
 
 phi(M,N) :- range_1(M,L) , findall(A,(member(A,L),coprime(A,M)),L1) , length(L1,N).
 % ALTERNATIVE WITHOUT FINDALL
