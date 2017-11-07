@@ -54,7 +54,7 @@ encodeHead(H,[H|T],[[N,H]|T1]) :- encodeHead(H,T,[[N1,H]|T1]) , N is N1+1.
 decode([],[]) :- !.
 decode(DL,L) :- decode0(DL,L-[]).
 
-decode0([],[]-[]).
+decode0([],[]-[]) :- !.
 decode0([[N,H]|T],L-L1) :- expand(N,H,L-L2) , decode0(T,L2-L1).
 
 expand(1,H,[H|T]-T) :- !.
