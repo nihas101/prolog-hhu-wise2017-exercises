@@ -6,9 +6,8 @@ example1(L) :- t([1,2,3,4],L).
 
 s([],_,[]).
 s([a(H,_)|T] , a(H,X) , [a(H,X)|T]). % Ersetze das zweite Element im Kopf der Liste mit X aus dem zweiten a-Tupel
-s([a(H,V)|T] , a(I,L) , [a(H,V)|R]) :-
-			H \= I,
-			s(T, a(I,L) ,R). % Solange das erste Element vom a-Tupel noch nicht übereinstimmt, suche weiter in der Liste.
+s([a(H,V)|T] , a(I,L) , [a(H,V)|R]) :-	H \= I ,
+										s(T, a(I,L) ,R). % Solange das erste Element vom a-Tupel noch nicht übereinstimmt, suche weiter in der Liste.
 			
 
 t(L,NL) :- t(L,[],NL). 				% Rufe neues Prädikat mit 3 Parametern auf
@@ -47,15 +46,19 @@ encode(H,[],[[1,H]]) :- !.
 encode(H,L,X) :- encodeHead(H,L,X).
 
 encodeHead(H,[],[[1,H]]) :- !.
-encodeHead(H,[E|T],[[1,H]|T1]) :- H \= E , encode(E,T,T1) , !.
-encodeHead(H,[H|T],[[N,H]|T1]) :- encodeHead(H,T,[[N1,H]|T1]) , N is N1+1.
+encodeHead(H,[E|T],[[1,H]|T1]) :- 	H \= E ,
+									encode(E,T,T1) , !.
+encodeHead(H,[H|T],[[N,H]|T1]) :- encodeHead(H,T,[[N1,H]|T1]) ,
+								  N is N1+1.
 
 
 decode([],[]) :- !.
 decode(DL,L) :- decode0(DL,L-[]).
 
 decode0([],[]-[]) :- !.
-decode0([[N,H]|T],L-L1) :- expand(N,H,L-L2) , decode0(T,L2-L1).
+decode0([[N,H]|T],L-L1) :- 	expand(N,H,L-L2) ,
+							decode0(T,L2-L1).
 
 expand(1,H,[H|T]-T) :- !.
-expand(N,H,[H|L]-T) :- N1 is N-1 , expand(N1,H,L-T).
+expand(N,H,[H|L]-T) :- N1 is N-1 ,
+					   expand(N1,H,L-T).
