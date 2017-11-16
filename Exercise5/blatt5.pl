@@ -4,21 +4,21 @@
 inorder(T) :- inorder(T,L-[]) ,
               print(L) , !.
 inorder(nil,L-L) :- !.
-inorder(t(V,LT,RT),L-T) :- inorder(LT,L-[V|T1]),
+inorder(t(V,LT,RT),L-T) :- inorder(LT,L-[V|T1]) ,
                            inorder(RT,T1-T).
 
 
 postorder(T) :- postorder(T,L-[]) ,
                 print(L) , !.
 postorder(nil,L-L) :- !.
-postorder(t(V,LT,RT),L-T) :- postorder(LT,L-T1),
+postorder(t(V,LT,RT),L-T) :- postorder(LT,L-T1) ,
                              postorder(RT,T1-[V|T]).
 
 
 preorder(T) :- preorder(T,L-[]) ,
                print(L), !.
 preorder(nil,L-L) :- !.
-preorder(t(V,LT,RT),[V|T]-T1) :- preorder(LT,T-T2),
+preorder(t(V,LT,RT),[V|T]-T1) :- preorder(LT,T-T2) ,
                                  preorder(RT,T2-T1).
 
 
@@ -31,7 +31,7 @@ removeMultiplesFromList([H|T],[H|T2]) :- removeMultiples(H,T,T1) ,
                                          removeMultiplesFromList(T1,T2).
 
 removeMultiples(_,[],[]) :- !.
-removeMultiples(E,[H|T],L) :- 0 is H mod E,
+removeMultiples(E,[H|T],L) :- 0 is H mod E ,
                               removeMultiples(E,T,L) , !.
 removeMultiples(E,[H|T],[H|T1]) :- removeMultiples(E,T,T1).
 
