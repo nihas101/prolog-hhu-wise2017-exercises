@@ -1,9 +1,9 @@
 :- module(blatt6).
 
 % Aufgabe 3 (Double-Append)
-dapp([],[],R,R) :- !.
-dapp([],[Y|Ys],Z,[Y|R]) :- dapp([],Ys,Z,R) , !.
-dapp([X|Xs],Y,Z,[X|R]) :- dapp(Xs,Y,Z,R) , !.
+dapp([],[],R,R).
+dapp([],[Y|Ys],Z,[Y|R]) :- dapp([],Ys,Z,R).
+dapp([X|Xs],Y,Z,[X|R]) :- dapp(Xs,Y,Z,R).
 
 
 
