@@ -116,6 +116,23 @@ it(0).
 it(N) :- it(N1) , N is N1+1.
 
 % Comparisons:
+test :- t(N) , print(N) , nl , test(N).
+
+t('dfs_goal').
+t('dfs_1').
+%t('dfs_2').
+t('ids_goal').
+t('ids_1').
+%t('ids_2').
+t('bfs_goal').
+t('bfs_1').
+%t('bfs_2').
+t('bfs_a_goal').
+t('bfs_a_1').
+t('bfs_a_2').
+t('bfs_a_3').
+
+
 % 2 inferences
 test('dfs_goal') :- time(dfs(c([x,1,2,3],[4,5,6,7],[8,9,10,11],[12,13,14,15]),FState)) , FState = c([x,1,2,3],[4,5,6,7],[8,9,10,11],[12,13,14,15]) , !.
 % 3 inferences
