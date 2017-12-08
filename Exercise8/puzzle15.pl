@@ -1,14 +1,13 @@
-%:- use_module(library(queues)).
 % Aufgabe 1 (15-Puzzle)
 
-% DFS
+% DFS - Depth First Search
 dfs(State,FState) :- dfs_(State,[],FState).
 dfs_(State,_,State) :- goal(State).
 dfs_(State,Hist,FState) :-  s(State,NState) ,
                             \+member(NState,Hist) ,
                             dfs_(NState,[NState|Hist],FState).
 
-% IDS
+% IDS - Iterative Deepening Search
 ids(State,FState) :-  it(N) ,
                       ids_(N,State,[],FState).
 ids_(_,State,_,State) :- goal(State).
@@ -17,7 +16,7 @@ ids_(N,State,Hist,FState) :-  N > 0 , N1 is N-1 ,
                               \+member(NState,Hist) ,
                               ids_(N1,NState,[NState|Hist],FState).
 
-% BFS
+% BFS - Breadth First Search
 bfs(State,FState) :- empty_queue(EQueue) , enqueue([State],EQueue,Queue) , bfs_(Queue,FState).
 bfs_(Queue,FState) :- dequeue(State,Queue,NQueue) ,
                       (goal(State) , FState = State ;
@@ -25,12 +24,11 @@ bfs_(Queue,FState) :- dequeue(State,Queue,NQueue) ,
                       enqueue(Succs,NQueue,NNQueue) ,
                       bfs_(NNQueue,FState)).
 
-% BFS A*
+% BFS A* - Breadth First Search with A*
 bfs_a(State,FState) :-  empty_queue(EQueue) ,
                         manhattan_distance(State,H) ,
                         enqueue([(State,H)],EQueue,Queue) ,
                         bfs_a_(Queue,FState).
-
 bfs_a_(Queue,FState) :- dequeue((State,_),Queue,NQueue) ,
                         (goal(State) , FState = State ;
                         findall((Succ,H1),(s(State,Succ),manhattan_distance(State,H1)),Succs) ,
