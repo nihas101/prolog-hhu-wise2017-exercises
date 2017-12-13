@@ -83,7 +83,7 @@ to_mhd(E,(X,Y)) :- X is E mod 4 , Y is E // 4 , !.
 
 
 % Queues
-empty_queue(T-T) :- !.
+empty_queue(T-T).
 
 enqueue(List,Queue-T,Queue-T1) :- enqueue_(List,T-T1) , !.
 enqueue_([E],[E|T]-T) :- !.
