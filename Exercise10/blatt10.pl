@@ -45,12 +45,14 @@ curly(Pairs) -->   ("{" , ! , bracket(Pairs1) , {Pairs is Pairs1+1} , "}")
 square(Pairs) -->  "[" , ! , bracket(Pairs1) , {Pairs is Pairs1+1} , "]".
 
 % Tests
-test(1-check) :- toDL([1,2,3],[1,2,3,T],T).
-test(2-check) :- toDL([1,2,3],DL,T) , T = [4,5,6] , DL = [1,2,3,4,5,6].
-test(3-check) :- dlconcat([1,2,3|T]-T,[4,5,6|T1]-T1,Res-[]) , Res = [1,2,3,4,5,6].
-test(4-check) :- dlconcat([1,2,3|T]-T,[4,5,6|T1]-T1,Res-T3) , T3 = [7] , Res = [1,2,3,4,5,6,7].
-test(5-check) :- findall(M,dlmember(M,[1,2,3,4,5,6|T]-T),Ms) , Ms = [1,2,3,4,5,6] , var(T).
-test(6-check) :- parse_pars("()",1).
-test(7-check) :- parse_pars("(())[]<<>>{}{}{{<[]>}}",11).
-test(8-check) :- parse_pars("()[]<>{}",4).
-test(9-check) :- \+parse_pars("(())[",_).
+test :- findall(X,test(X),Xs) , Xs = [0,1,2,3,4,5,6,7,8,9].
+test(0) :- same.
+test(1) :- toDL([1,2,3],[1,2,3,T],T).
+test(2) :- toDL([1,2,3],DL,T) , T = [4,5,6] , DL = [1,2,3,4,5,6].
+test(3) :- dlconcat([1,2,3|T]-T,[4,5,6|T1]-T1,Res-[]) , Res = [1,2,3,4,5,6].
+test(4) :- dlconcat([1,2,3|T]-T,[4,5,6|T1]-T1,Res-T3) , T3 = [7] , Res = [1,2,3,4,5,6,7].
+test(5) :- findall(M,dlmember(M,[1,2,3,4,5,6|T]-T),Ms) , Ms = [1,2,3,4,5,6] , var(T).
+test(6) :- parse_pars("()",1).
+test(7) :- parse_pars("(())[]<<>>{}{}{{<[]>}}",11).
+test(8) :- parse_pars("()[]<>{}",4).
+test(9) :- \+parse_pars("(())[",_).
