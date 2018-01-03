@@ -21,7 +21,7 @@ element_of(E,[_|T]) :- element_of(E,T) , !.
 % del_element(E, L, R), löscht E aus der Liste L und gibt die neue Liste R zurück
 % del_element löscht alle Elemente E aus der Liste
 del_element(_,[],[]) :- !.
-del_element(E,[E|T],R) :- del_element(E,T,R) , !. 
+del_element(E,[E|T],R) :- del_element(E,T,R) , !.
 del_element(E,[H|T],[H|T1]) :- E \= H , del_element(E,T,T1) , !.
 
 % Schreiben Sie ein Prädikat flatten/2, welches eine Liste von Listen in eine flache Liste überführt.
@@ -72,8 +72,6 @@ who_hates_siegfried(L) :- findall(X,hates(X,'Siegfried'),L).
 form_pairs(L) :- findall([X,Y], ( loves(X,Y) , X \= Y) ,L).
 
 % Schreiben Sie ein Prädikat insert at/4, welches ein Element an einer gegebenen Position in eine Liste einfügt.
-insert_at(E,L,N,R) :- length(L,LengthL) , N > LengthL , append(L,[E],R).
-insert_at(E,L,N,R) :- insert_at_(E,L,N,R).
-
-insert_at_(H,T,1,[H|T]) :- !.
-insert_at_(E,[H|T],N,[H|T1]) :- N > 1 , N1 is N-1 , insert_at_(E,T,N1,T1).
+insert_at(H,[],_,[H]) :- !.
+insert_at(H,T,1,[H|T]) :- !.
+insert_at(E,[H|T],N,[H|T1]) :- N > 1 , N1 is N-1 , insert_at(E,T,N1,T1).
