@@ -34,7 +34,7 @@ range_2(N,[A,B|T1]) :- B is A+1 ,
                        range_2(N,[B|T1]) , !.
 range_2(_,[_]).
 
-phi(M,N) :- range_1(M,L) , length(L1,N) , findall(A,(member(A,L),coprime(A,M)),L1).
+phi(M,N) :- range_1(M,L) , findall(A,(member(A,L),coprime(A,M)),L1) , length(L1,N).
 % ALTERNATIVE WITHOUT FINDALL
 phi_(0,0) :- !.
 phi_(1,0) :- !.
