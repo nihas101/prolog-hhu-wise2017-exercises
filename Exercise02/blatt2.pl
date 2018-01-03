@@ -1,6 +1,5 @@
 :- module(blatt2).
 
-%% Code hier einfügen
 % is_a_list(L), testet, ob L eine Prolog-Liste ist
 is_a_list([]) :- !.
 is_a_list([_|T]) :- is_a_list(T) , !.

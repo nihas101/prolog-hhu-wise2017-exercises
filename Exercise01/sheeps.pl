@@ -18,7 +18,6 @@ parent(gunter,pauline).
 parent(doerte,peter).
 parent(doerte,pauline).
 
-%%%% Prolog Code hier
 % Schreiben Sie ein Praedikat sheep/1, dass fuer alle Schafe in der Datenbank wahr ist.
 sheep(X) :- female(X) ; male(X).
 % Schreiben Sie zwei Praedikate father/2 und mother/2. Die Anfrage father(F,C) soll genau dann wahr
