@@ -8,7 +8,7 @@ s([],_,[]).
 s([a(H,_)|T] , a(H,X) , [a(H,X)|T]). % Ersetze das zweite Element im Kopf der Liste mit X aus dem zweiten a-Tupel
 s([a(H,V)|T] , a(I,L) , [a(H,V)|R]) :-	H \= I ,
 										s(T, a(I,L) ,R). % Solange das erste Element vom a-Tupel noch nicht übereinstimmt, suche weiter in der Liste.
-			
+
 
 t(L,NL) :- t(L,[],NL). 				% Rufe neues Prädikat mit 3 Parametern auf
 t([],L,L).
@@ -16,18 +16,21 @@ t([H|T],A,NL) :- t(T,[H|A],NL).		% Hänge den Kopf ans Ende der List (Effektiv w
 
 
 % Aufgabe 2 (Autamaton)
-accept(L) :- accept(L,1) , !.
+start(1).
+transition(1,d,2).
+transition(2,a,2).
+transition(2,b,2).
+transition(2,d,4).
+transition(2,c,3).
+transition(2,e,5).
+transition(3,d,6).
+transition(6,c,5).
+fin(4).
+fin(5).
 
-accept([],4) :- !.
-accept([],5) :- !.
-accept([d|T],1) :- accept(T,2).
-accept([a|T],2) :- accept(T,2).
-accept([b|T],2) :- accept(T,2).
-accept([d|T],2) :- accept(T,4).
-accept([e|T],2) :- accept(T,5).
-accept([c|T],2) :- accept(T,3).
-accept([d|T],3) :- accept(T,6).
-accept([c|T],6) :- accept(T,5).
+accept([H|T]) :- start(A) , transition(A,H,B) , accept(T,B) , !.
+accept([],Z) :- fin(Z).
+accept([H|T],A) :- transition(A,H,B) , accept(T,B).
 
 % Aufgabe 3 (Kompression)
 %(a)
@@ -36,7 +39,7 @@ compress([H|T],X) :- compress(H,T,X) , !.
 
 compress(H,[],[H]) :- !.
 compress(H,[H|T],X) :- compress(H,T,X) , !.
-compress(E,[H|T],[E|Es]) :- E \= H , compress(H,T,Es). 
+compress(E,[H|T],[E|Es]) :- E \= H , compress(H,T,Es).
 
 %(b)
 encode([],[]) :- !.
