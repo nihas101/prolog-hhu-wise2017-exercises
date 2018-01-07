@@ -112,12 +112,12 @@ s(ai,state(min,Val,Range,Player1,p2(Sum,Player2)),state(max,Val,NRange,Player1,p
 
 % goal(+State)
 % State - One of the possible endstates
+goal(state(_,-1,_,p1(15,_),p2(_,_))).
+goal(state(_,1,_,p1(_,_),p2(15,_))).
 goal(state(_,0,Range,p1(Sum1,_),p2(Sum2,_))) :- length(Range,Length) ,
                                                 Plys is Length//2 ,
                                                 \+can_win(Sum1,Range,Plys) ,
                                                 \+can_win(Sum2,Range,Plys).
-goal(state(_,-1,_,p1(15,_),p2(_,_))).
-goal(state(_,1,_,p1(_,_),p2(15,_))).
 goal(state(_,0,_,p1(N0,_),p2(N1,_))) :- N0 > 15 , N1 > 15.
 goal(state(_,-1,_,p1(_,_),p2(N,_))) :- N > 15.
 goal(state(_,1,_,p1(N,_),p2(_,_))) :- N > 15.
