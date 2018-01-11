@@ -73,7 +73,8 @@ play(player2,N,State) :-  N1 is N+1 , write("Player 2 - ") ,
 % Player - The current player
 % Round - The current round
 % State - The current state of the game
-check_win(Player,Round,State) :- (goal(State) -> print_win(State) ; other_player(Player,OPlayer) , play(OPlayer,Round,State)).
+check_win(Player,Round,State) :- (goal(State) -> print_win(State)
+                                  ; other_player(Player,OPlayer) , play(OPlayer,Round,State)).
 
 % start(-State)
 % State - The state at the beginning of the game
@@ -102,13 +103,18 @@ minmax([state(M,V,R,P1,P2)|States],NextState) :-  goal(state(M,V,R,P1,P2)) ,
 % Player - The current player
 % State - The State before moving
 % NextState - The State after moving
-s(player,state(max,_,Range,p1(Sum,Player1),Player2),state(min,_,NRange,p1(Sum1,[N|Player1]),Player2)) :- prompt(Range,N,NRange) , Sum1 is Sum+N , nl.
+s(player,state(max,_,Range,p1(Sum,Player1),Player2),state(min,_,NRange,p1(Sum1,[N|Player1]),Player2)) :-
+                                                             prompt(Range,N,NRange) , Sum1 is Sum+N , nl.
 
-s(player1,state(max,_,Range,p1(Sum,Player1),Player2),state(min,_,NRange,p1(Sum1,[N|Player1]),Player2)) :- prompt(Range,N,NRange) , Sum1 is Sum+N , nl.
-s(player2,state(min,_,Range,Player1,p2(Sum,Player2)),state(max,_,NRange,Player1,p2(Sum1,[N|Player2]))) :- prompt(Range,N,NRange) , Sum1 is Sum+N , nl.
+s(player1,state(max,_,Range,p1(Sum,Player1),Player2),state(min,_,NRange,p1(Sum1,[N|Player1]),Player2)) :-
+                                                             prompt(Range,N,NRange) , Sum1 is Sum+N , nl.
+s(player2,state(min,_,Range,Player1,p2(Sum,Player2)),state(max,_,NRange,Player1,p2(Sum1,[N|Player2]))) :-
+                                                             prompt(Range,N,NRange) , Sum1 is Sum+N , nl.
 
-s(ai,state(max,Val,Range,p1(Sum,Player1),Player2),state(min,Val,NRange,p1(Sum1,[N|Player1]),Player2)) :- select(N,Range,NRange) , Sum1 is Sum+N.
-s(ai,state(min,Val,Range,Player1,p2(Sum,Player2)),state(max,Val,NRange,Player1,p2(Sum1,[N|Player2]))) :- select(N,Range,NRange) , Sum1 is Sum+N.
+s(ai,state(max,Val,Range,p1(Sum,Player1),Player2),state(min,Val,NRange,p1(Sum1,[N|Player1]),Player2)) :-
+                                                             select(N,Range,NRange) , Sum1 is Sum+N.
+s(ai,state(min,Val,Range,Player1,p2(Sum,Player2)),state(max,Val,NRange,Player1,p2(Sum1,[N|Player2]))) :-
+                                                             select(N,Range,NRange) , Sum1 is Sum+N.
 
 % goal(+State)
 % State - One of the possible endstates
@@ -126,7 +132,8 @@ goal(state(_,1,_,p1(N,_),p2(_,_))) :- N > 15.
 % Range - The list of numbers to choose from
 % N - The choosen number
 % NRange - The leftover numbers
-prompt(Range,N,NRange) :- write('Choose one of the following numbers ') , print(Range) , write(': ') , read(N) , select(N,Range,NRange) , !.
+prompt(Range,N,NRange) :- write('Choose one of the following numbers ') , print(Range) , write(': ') ,
+                          read(N) , select(N,Range,NRange) , !.
 prompt(Range,N,NRange) :- prompt(Range,N,NRange).
 
 can_win(Sum,Range,Plys) :-  Plys > 0 ,
@@ -164,11 +171,13 @@ sort_states(M,[State|States],SortedStates-T) :- split_states(M,State,States,Stat
 % States1 - The elements for which States1 =< State or States1 >= State holds
 % States2 - The elements for which States2 >= State or States2 =< State holds
 split_states(_,_,[],[],[]) :- !.
-split_states(min,state(_,V,_,_,_),[state(P,V1,R,P1,P2)|CStates],[state(P,V1,R,P1,P2)|States1],States2) :- V > V1 ,
-                                                                                                          split_states(min,state(_,V,_,_,_),CStates,States1,States2) , !.
+split_states(min,state(_,V,_,_,_),[state(P,V1,R,P1,P2)|CStates],[state(P,V1,R,P1,P2)|States1],States2) :-
+                                                              V > V1 ,
+                                                              split_states(min,state(_,V,_,_,_),CStates,States1,States2) , !.
 split_states(min,State,[CState|CStates],States1,[CState|States2]) :- split_states(min,State,CStates,States1,States2) , !.
-split_states(max,state(_,V,_,_,_),[state(P,V1,R,P1,P2)|CStates],[state(P,V1,R,P1,P2)|States1],States2) :- V < V1 ,
-                                                                                                          split_states(max,state(_,V,_,_,_),CStates,States1,States2) , !.
+split_states(max,state(_,V,_,_,_),[state(P,V1,R,P1,P2)|CStates],[state(P,V1,R,P1,P2)|States1],States2) :-
+                                                               V < V1 ,
+                                                               split_states(max,state(_,V,_,_,_),CStates,States1,States2) , !.
 split_states(max,State,[CState|CStates],States1,[CState|States2]) :- split_states(max,State,CStates,States1,States2) , !.
 
 range_1(0,[]) :- !.
