@@ -37,7 +37,7 @@ queens(N,Sol) :- setup_queens(1,N,Sol,PSol) ,
                  labeling([],PSol).
 
 setup_queens(N,N,[(X,N)],[X]) :- X in 1..N , !.
-setup_queens(Y,N,[(X,Y)|T],[X|T1]) :- Y1 is Y+1 ,                 % horizontal
+setup_queens(Y,N,[(X,Y)|T],[X|T1]) :- Y1 is Y+1 ,                 % vertical
                                       X in 1..N ,
                                       setup_queens(Y1,N,T,T1).
 
@@ -46,7 +46,7 @@ setup_relations(N,[(X,_)|T]) :- setup_relations(N,1,X,T) ,
                                 setup_relations(N,T).
 
 setup_relations(_,_,_,[]) :- !.
-setup_relations(N,Offset,X,[(X1,_)|T]) :- X1 #\= X ,              % vertical
+setup_relations(N,Offset,X,[(X1,_)|T]) :- X1 #\= X ,              % horizontal
                                           Offset #\= abs(X-X1) ,  % diagonal
                                           Offset1 is Offset+1,
                                           setup_relations(N,Offset1,X,T).
