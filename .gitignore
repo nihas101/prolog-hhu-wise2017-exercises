@@ -1,3 +1,6 @@
 *.txt
 *.pdf
 *.png
+Project/resources/
+Project/sat_test.pl
+Project/sudoku_test.pl
