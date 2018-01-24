@@ -6,11 +6,14 @@ cst(false) :- fail.
 
 is_true(A) :- A.
 
+is_false(A) :- A , !, fail.
+is_false(_).
+
 and(A,B) :- A , B.
 
 or(A,B) :- A ; B.
 
-not(B) :- \+ B.
+not(B) :- is_false(B).
 
 % Aufgabe 4 (Größter gemeinsamer Teile und Anwendugen)
 gcd(0,B,B) :- !.
