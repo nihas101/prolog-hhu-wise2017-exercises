@@ -34,8 +34,8 @@ element_of(E,[_|T]) :- element_of(E,T) , !.
 % del_element(E, L, R), löscht E aus der Liste L und gibt die neue Liste R zurück
 % del_element löscht alle Elemente E aus der Liste
 del_element(_,[],[]) :- !.
-del_element(E,[E|T],R) :- del_element(E,T,R) , !.
-del_element(E,[H|T],[H|T1]) :- E \= H , del_element(E,T,T1) , !.
+del_element(E,[E|T],R) :- ! , del_element(E,T,R).
+del_element(E,[H|T],[H|T1]) :- del_element(E,T,T1) , !.
 
 % Schreiben Sie ein Prädikat flatten/2, welches eine Liste von Listen in eine flache Liste überführt.
 flatten([],[]).
