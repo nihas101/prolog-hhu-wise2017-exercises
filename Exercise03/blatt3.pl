@@ -18,14 +18,9 @@ not(B) :- is_false(B).
 % Aufgabe 4 (Größter gemeinsamer Teile und Anwendugen)
 gcd(0,B,B) :- !.
 gcd(A,0,A) :- !.
-gcd(A,B,GCD) :-  A > B ,
-                 B > 0 ,
-                 A1 is A-B ,
-                 gcd(A1,B,GCD) , !.
-gcd(A,B,GCD) :- B >= A ,
-                A > 0 ,
-                B1 is B-A ,
-                gcd(A,B1,GCD).
+gcd(A,B,GCD) :-  (B > 0 , A > 0) , (A > B ->
+                   (A1 is A-B , gcd(A1,B,GCD))
+                ;  (B1 is B-A , gcd(A,B1,GCD))).
 
 coprime(A,B) :- gcd(A,B,1).
 
