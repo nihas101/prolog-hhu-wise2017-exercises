@@ -5,14 +5,27 @@ is_a_list([]) :- !.
 is_a_list([_|T]) :- is_a_list(T) , !.
 
 % infix(I, L), testet, ob I ein Infix der Liste L ist
-infix(I,L) :- append(I,_,L) , !.
-infix(I,[_|T]) :- infix(I,T) , !.
+infix([],_) :- !.
+infix([H|T1],[H|T2]) :- prefix(T1,T2).
+infix(I,[_|T]) :- infix(I,T).
+
+infix_alt(I,L) :- append(I,_,L) , !.
+infix_alt(I,[_|T]) :- infix_alt(I,T) , !.
 
 % suffix(S, L), testet, ob S ein Suffix der Liste L ist
-suffix(S,L) :- append(_,S,L) , !.
+suffix([],_) :- !.
+suffix(S,L) :- length(S,Length) ,
+               length(L,Length) , ! ,
+               prefix(S,L).
+suffix(S,[_|T]) :- suffix(S,T).
+
+suffix_alt(S,L) :- append(_,S,L) , !.
 
 % prefix(P, L), testet, ob P ein Präfix der Liste L ist
-prefix(P,L) :- append(P,_,L) , !.
+prefix([],_).
+prefix([H1|T1],[H1|T2]) :- prefix(T1,T2).
+
+prefix_alt(P,L) :- append(P,_,L) , !.
 
 % element_of(E, L), testet, ob E ein Element der Liste L ist
 element_of(E,[E|_]) :- !.
