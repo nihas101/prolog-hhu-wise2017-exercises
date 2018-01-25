@@ -74,10 +74,10 @@ manhattan_distance(Puzzle,MHD) :- manhattan_distance(Puzzle,0,MHD) , !.
 manhattan_distance(c([],[],[],[]),_,0) :- !.
 manhattan_distance(c([H|T],[H1|T1],[H2|T2],[H3|T3]),X,MHD) :- X1 is X+1,
                                                               manhattan_distance(c(T,T1,T2,T3),X1,MHD1) ,
-                                                              to_mhd(H,(HX,HY)) , %MHD2 is abs(X-HX) + HY ,
-                                                              to_mhd(H1,(H1X,H1Y)) , %MHD3 is abs(X-H1X) + abs(1-H1Y) ,
-                                                              to_mhd(H2,(H2X,H2Y)) , %MHD4 is abs(X-H2X) + abs(2-H2Y) ,
-                                                              to_mhd(H3,(H3X,H3Y)) , %MHD5 is abs(X-H3X) + abs(3-H3Y) ,
+                                                              to_mhd(H,(HX,HY)) ,
+                                                              to_mhd(H1,(H1X,H1Y)) ,
+                                                              to_mhd(H2,(H2X,H2Y)) ,
+                                                              to_mhd(H3,(H3X,H3Y)) ,
                                                               MHD is MHD1 + abs(X-HX) + HY + abs(X-H1X) + abs(1-H1Y) + abs(X-H2X) + abs(2-H2Y) + abs(X-H3X) + abs(3-H3Y) , !.
 
 to_mhd(x,(0,0)) :- !.
