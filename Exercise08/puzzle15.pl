@@ -1,3 +1,5 @@
+:- use_module(library(statistics)).
+
 % Aufgabe 1 (15-Puzzle)
 
 % DFS - Depth First Search
