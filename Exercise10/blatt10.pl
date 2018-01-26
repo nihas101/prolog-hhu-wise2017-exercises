@@ -17,7 +17,6 @@ same :- % Check equality
 % L  - The list
 % DL - The differencelist
 toDL([],T,T).
-toDL([H],[H|T],T) :- !.
 toDL([H|T],[H|T1],T2) :- toDL(T,T1,T2) , !.
 
 % (c)
